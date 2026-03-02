@@ -9,7 +9,7 @@
     HtmlWebpackPlugin จะ inject bundle.js ให้อัตโนมัติ
   -->
 </head>
-<body ng-controller="TodoController as vm">
+<body ng-controller="TodoController">
 
   <div class="app-wrapper">
     <div class="todo-card">
@@ -17,19 +17,19 @@
       <!-- Header -->
       <div class="todo-header">
         <h1>📝 My Todo List</h1>
-        <span class="todo-count">{{ vm.remaining() }} รายการที่ยังค้างอยู่</span>
+        <span class="todo-count">{{ remaining() }} รายการที่ยังค้างอยู่</span>
       </div>
 
       <!-- Input Form -->
-      <form class="todo-form" ng-submit="vm.addTodo()">
+      <form class="todo-form" ng-submit="addTodo()">
         <input
           type="text"
           class="todo-input"
-          ng-model="vm.newTodo"
+          ng-model="newTodo"
           placeholder="เพิ่มรายการใหม่..."
           autofocus
         />
-        <button type="submit" class="btn btn-add" ng-disabled="!vm.newTodo.trim()">
+        <button type="submit" class="btn btn-add" ng-disabled="!newTodo.trim()">
           เพิ่ม
         </button>
       </form>
@@ -38,7 +38,7 @@
       <ul class="todo-list">
         <li
           class="todo-item"
-          ng-repeat="todo in vm.todos"
+          ng-repeat="todo in todos"
           ng-class="{ 'done': todo.done }"
         >
           <!-- Checkbox Toggle -->
@@ -54,7 +54,7 @@
           <!-- Delete Button -->
           <button
             class="btn btn-delete"
-            ng-click="vm.removeTodo($index)"
+            ng-click="removeTodo($index)"
             title="ลบรายการนี้"
           >
             ✕
@@ -62,20 +62,20 @@
         </li>
 
         <!-- Empty State -->
-        <li class="todo-empty" ng-if="vm.todos.length === 0">
+        <li class="todo-empty" ng-if="todos.length === 0">
           ยังไม่มีรายการ ลองเพิ่มดูสิ! 🎉
         </li>
       </ul>
 
       <!-- Footer Actions -->
-      <div class="todo-footer" ng-if="vm.todos.length > 0">
+      <div class="todo-footer" ng-if="todos.length > 0">
         <span class="todo-stats">
-          ทำแล้ว {{ vm.doneCount() }} / {{ vm.todos.length }} รายการ
+          ทำแล้ว {{ doneCount() }} / {{ todos.length }} รายการ
         </span>
         <button
           class="btn btn-clear"
-          ng-click="vm.clearDone()"
-          ng-if="vm.doneCount() > 0"
+          ng-click="clearDone()"
+          ng-if="doneCount() > 0"
         >
           ลบรายการที่ทำแล้ว
         </button>
