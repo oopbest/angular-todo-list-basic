@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="th" ng-app="todoApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angular TodoList Basic</title>
+  <!--
+    หมายเหตุ: ไม่ต้องใส่ <script> หรือ <link> เอง
+    HtmlWebpackPlugin จะ inject bundle.js ให้อัตโนมัติ
+  -->
+</head>
+<body ng-controller="TodoController as vm">
+
+  <div class="app-wrapper">
+    <div class="todo-card">
+
+      <!-- Header -->
+      <div class="todo-header">
+        <h1>📝 My Todo List</h1>
+        <span class="todo-count">{{ vm.remaining() }} รายการที่ยังค้างอยู่</span>
+      </div>
+
+      <!-- Input Form -->
+      <form class="todo-form" ng-submit="vm.addTodo()">
+        <input
+          type="text"
+          class="todo-input"
+          ng-model="vm.newTodo"
+          placeholder="เพิ่มรายการใหม่..."
+          autofocus
+        />
+        <button type="submit" class="btn btn-add" ng-disabled="!vm.newTodo.trim()">
+          เพิ่ม
+        </button>
+      </form>
+
+      <!-- Todo List -->
+      <ul class="todo-list">
+        <li
+          class="todo-item"
+          ng-repeat="todo in vm.todos"
+          ng-class="{ 'done': todo.done }"
+        >
+          <!-- Checkbox Toggle -->
+          <label class="todo-label">
+            <input
+              type="checkbox"
+              ng-model="todo.done"
+              class="todo-checkbox"
+            />
+            <span class="todo-text">{{ todo.text }}</span>
+          </label>
+
+          <!-- Delete Button -->
+          <button
+            class="btn btn-delete"
+            ng-click="vm.removeTodo($index)"
+            title="ลบรายการนี้"
+          >
+            ✕
+          </button>
+        </li>
+
+        <!-- Empty State -->
+        <li class="todo-empty" ng-if="vm.todos.length === 0">
+          ยังไม่มีรายการ ลองเพิ่มดูสิ! 🎉
+        </li>
+      </ul>
+
+      <!-- Footer Actions -->
+      <div class="todo-footer" ng-if="vm.todos.length > 0">
+        <span class="todo-stats">
+          ทำแล้ว {{ vm.doneCount() }} / {{ vm.todos.length }} รายการ
+        </span>
+        <button
+          class="btn btn-clear"
+          ng-click="vm.clearDone()"
+          ng-if="vm.doneCount() > 0"
+        >
+          ลบรายการที่ทำแล้ว
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
