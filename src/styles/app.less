@@ -170,7 +170,42 @@ body {
   }
 }
 
-// ─── 7. Todo List ─────────────────────────────
+// ─── 7. Filters ─────────────────────────────────
+.todo-filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+  background: lighten(@bg-color, 3%);
+  border-bottom: 1px solid @border-color;
+  justify-content: center;
+
+  .btn-filter {
+    background: transparent;
+    border: 1px solid @border-color;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: @text-muted;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: @font-main;
+
+    &:hover {
+      background: @card-bg;
+      color: @text-color;
+    }
+
+    &.active {
+      background: @primary-color;
+      color: #fff;
+      border-color: @primary-color;
+      box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+    }
+  }
+}
+
+// ─── 8. Todo List ─────────────────────────────
 .todo-list {
   list-style: none;
   max-height: 400px;

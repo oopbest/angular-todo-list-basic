@@ -34,11 +34,30 @@
         </button>
       </form>
 
+      <!-- Filters -->
+      <div class="todo-filters">
+        <button 
+          class="btn-filter" 
+          ng-class="{ 'active': statusFilter === '' }" 
+          ng-click="setFilter('')"
+        >ทั้งหมด (All)</button>
+        <button 
+          class="btn-filter" 
+          ng-class="{ 'active': statusFilter === 'active' }" 
+          ng-click="setFilter('active')"
+        >ค้างอยู่ (Active)</button>
+        <button 
+          class="btn-filter" 
+          ng-class="{ 'active': statusFilter === 'completed' }" 
+          ng-click="setFilter('completed')"
+        >ทำแล้ว (Completed)</button>
+      </div>
+
       <!-- Todo List -->
       <ul class="todo-list">
         <li
           class="todo-item"
-          ng-repeat="todo in todos"
+          ng-repeat="todo in todos | filter: checkFilter"
           ng-class="{ 'done': todo.done }"
         >
           <!-- Checkbox Toggle -->

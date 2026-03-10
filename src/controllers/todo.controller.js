@@ -17,6 +17,22 @@ angular.module('todoApp').controller('TodoController', function($scope) {
   // ข้อความใน input field (two-way binding ด้วย ng-model)
   $scope.newTodo = '';
 
+  // สถานะการกรอง (Filter State)
+  // '' = All, 'active' = ยังไม่ทำ, 'completed' = ทำแล้ว
+  $scope.statusFilter = '';
+
+  // ฟังก์ชันสำหรับเปลี่ยน Filter
+  $scope.setFilter = function(filter) {
+    $scope.statusFilter = filter;
+  };
+
+  // Custom filter function สำหรับ ng-repeat
+  $scope.checkFilter = function(todo) {
+    if ($scope.statusFilter === 'active') return !todo.done;
+    if ($scope.statusFilter === 'completed') return todo.done;
+    return true; // All
+  };
+
   // ─── Methods (ฟังก์ชันการทำงาน) ───────────────────────────
 
   /**
