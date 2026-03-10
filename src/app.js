@@ -27,10 +27,10 @@ const app = angular.module('todoApp', ['ui.router']);
 // 5️⃣ โหลด Route Config (ต้องมาก่อน Controllers เพราะกำหนด states)
 require('./config/routes.js');
 
-// 6️⃣ โหลด Controllers ทั้งหมด
-require('./controllers/todo.controller.js');
-require('./controllers/about.controller.js');
-require('./controllers/settings.controller.js');
+// 6️⃣ โหลด Controllers ทั้งหมด (จัดเป็น component-based structure)
+require('./components/todo/todo.controller.js');
+require('./components/about/about.controller.js');
+require('./components/settings/settings.controller.js');
 
 // Export สำหรับใช้ใน files อื่น
 module.exports = app;

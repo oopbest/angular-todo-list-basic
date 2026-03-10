@@ -22,22 +22,22 @@ angular.module('todoApp').config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     // ─── Home (Todo List) ─────────────────────
     .state('home', {
-      url: '/',                           // URL path
-      template: require('../templates/todo.html'),  // โหลด HTML ผ่าน html-loader
-      controller: 'TodoController',       // ใช้ controller ตัวเดิม
+      url: '/',
+      template: require('../components/todo/todo.html'),
+      controller: 'TodoController',
     })
 
     // ─── About Page ──────────────────────────
     .state('about', {
       url: '/about',
-      template: require('../templates/about.html'),
+      template: require('../components/about/about.html'),
       controller: 'AboutController',
     })
 
     // ─── Settings Page ───────────────────────
     .state('settings', {
       url: '/settings',
-      template: require('../templates/settings.html'),
+      template: require('../components/settings/settings.html'),
       controller: 'SettingsController',
     });
 });
