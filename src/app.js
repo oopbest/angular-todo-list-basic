@@ -12,21 +12,25 @@
 // 1️⃣ โหลด AngularJS ก่อนเป็นอันดับแรก
 const angular = require('angular');
 
-// 2️⃣ โหลด LESS styles
-//    Webpack จะใช้ less-loader → css-loader → style-loader
-//    แปลง LESS → CSS → inject เข้า <style> tag ใน browser อัตโนมัติ
+// 2️⃣ โหลด UI-Router สำหรับระบบ Routing
+//    angular-ui-router จะลงทะเบียน module ชื่อ 'ui.router' ให้อัตโนมัติ
+require('angular-ui-router');
+
+// 3️⃣ โหลด LESS styles
 require('./styles/app.less');
 
-// 3️⃣ สร้าง Angular Module ชื่อ "todoApp"
-//    ⚠️ ต้องสร้างก่อน require controller เสมอ!
-//    เพราะ controller จะเรียก angular.module('todoApp').controller(...)
-//    ถ้า module ยังไม่มีจะ error: "Module 'todoApp' is not available!"
-//    - 'todoApp' ต้องตรงกับ ng-app="todoApp" ใน index.html
-//    - [] คือรายชื่อ dependencies ของ module (sub-modules)
-const app = angular.module('todoApp', []);
+// 4️⃣ สร้าง Angular Module ชื่อ "todoApp"
+//    ⚠️ เพิ่ม 'ui.router' เป็น dependency ของ module
+//    เพื่อให้ใช้งาน $stateProvider, ui-view, ui-sref ได้
+const app = angular.module('todoApp', ['ui.router']);
 
-// 4️⃣ โหลด Controller (หลังสร้าง module แล้วเท่านั้น!)
+// 5️⃣ โหลด Route Config (ต้องมาก่อน Controllers เพราะกำหนด states)
+require('./config/routes.js');
+
+// 6️⃣ โหลด Controllers ทั้งหมด
 require('./controllers/todo.controller.js');
+require('./controllers/about.controller.js');
+require('./controllers/settings.controller.js');
 
 // Export สำหรับใช้ใน files อื่น
 module.exports = app;

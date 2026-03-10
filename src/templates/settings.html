@@ -1,0 +1,67 @@
+<div class="app-wrapper">
+  <div class="page-card">
+
+    <div class="page-header settings-header">
+      <h1>⚙️ ตั้งค่า</h1>
+    </div>
+
+    <div class="page-content">
+
+      <div class="setting-group">
+        <label class="setting-label">ชื่อผู้ใช้</label>
+        <input 
+          type="text" 
+          class="setting-input" 
+          ng-model="username" 
+          placeholder="กรอกชื่อของคุณ..."
+        />
+        <p class="setting-preview" ng-if="username">
+          สวัสดีครับ <strong>{{ username }}</strong>! 👋
+        </p>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">จำนวน Todo เริ่มต้นที่ต้องการ</label>
+        <select class="setting-input" ng-model="defaultCount">
+          <option value="3">3 รายการ</option>
+          <option value="5">5 รายการ</option>
+          <option value="10">10 รายการ</option>
+        </select>
+        <p class="setting-preview">
+          เลือก: {{ defaultCount }} รายการ
+        </p>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">ธีมสี</label>
+        <div class="theme-options">
+          <button 
+            class="theme-btn theme-purple"
+            ng-class="{ 'selected': theme === 'purple' }"
+            ng-click="setTheme('purple')"
+          ></button>
+          <button 
+            class="theme-btn theme-blue"
+            ng-class="{ 'selected': theme === 'blue' }"
+            ng-click="setTheme('blue')"
+          ></button>
+          <button 
+            class="theme-btn theme-green"
+            ng-class="{ 'selected': theme === 'green' }"
+            ng-click="setTheme('green')"
+          ></button>
+          <button 
+            class="theme-btn theme-orange"
+            ng-class="{ 'selected': theme === 'orange' }"
+            ng-click="setTheme('orange')"
+          ></button>
+        </div>
+        <p class="setting-preview">
+          ธีมปัจจุบัน: <strong>{{ theme }}</strong>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

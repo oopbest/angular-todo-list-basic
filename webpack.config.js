@@ -18,9 +18,17 @@ module.exports = {
     rules: [
       // 🔹 html-loader: แปลงไฟล์ .html ให้เป็น JavaScript string
       //    ใช้สำหรับโหลด AngularJS template เข้าใน controller
+      //    ⚠️ esModule: false สำคัญมาก!
+      //    html-loader v5 จะ return ES Module object { default: "..." } โดย default
+      //    แต่ AngularJS ต้องการ plain string → ถ้าไม่ปิด จะเห็น [object Module]
       {
         test: /\.html$/,
-        use: 'html-loader',
+        use: {
+          loader: 'html-loader',
+          options: {
+            esModule: false,
+          },
+        },
       },
 
       // 🔹 less-loader → css-loader → style-loader (ทำงานจากขวาไปซ้าย)

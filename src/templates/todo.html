@@ -1,0 +1,91 @@
+<div class="app-wrapper">
+  <div class="todo-card">
+
+    <!-- Header -->
+    <div class="todo-header">
+      <h1>📝 My Todo List</h1>
+      <span class="todo-count">{{ remaining() }} รายการที่ยังค้างอยู่</span>
+    </div>
+
+    <!-- Input Form -->
+    <form class="todo-form" ng-submit="addTodo()">
+      <input
+        type="text"
+        class="todo-input"
+        ng-model="newTodo"
+        placeholder="เพิ่มรายการใหม่..."
+        autofocus
+      />
+      <button type="submit" class="btn btn-add" ng-disabled="!newTodo.trim()">
+        เพิ่ม
+      </button>
+    </form>
+
+    <!-- Filters -->
+    <div class="todo-filters">
+      <button 
+        class="btn-filter" 
+        ng-class="{ 'active': statusFilter === '' }" 
+        ng-click="setFilter('')"
+      >ทั้งหมด (All)</button>
+      <button 
+        class="btn-filter" 
+        ng-class="{ 'active': statusFilter === 'active' }" 
+        ng-click="setFilter('active')"
+      >ค้างอยู่ (Active)</button>
+      <button 
+        class="btn-filter" 
+        ng-class="{ 'active': statusFilter === 'completed' }" 
+        ng-click="setFilter('completed')"
+      >ทำแล้ว (Completed)</button>
+    </div>
+
+    <!-- Todo List -->
+    <ul class="todo-list">
+      <li
+        class="todo-item"
+        ng-repeat="todo in todos | filter: checkFilter"
+        ng-class="{ 'done': todo.done }"
+      >
+        <!-- Checkbox Toggle -->
+        <label class="todo-label">
+          <input
+            type="checkbox"
+            ng-model="todo.done"
+            class="todo-checkbox"
+          />
+          <span class="todo-text">{{ todo.text }}</span>
+        </label>
+
+        <!-- Delete Button -->
+        <button
+          class="btn btn-delete"
+          ng-click="removeTodo($index)"
+          title="ลบรายการนี้"
+        >
+          ✕
+        </button>
+      </li>
+
+      <!-- Empty State -->
+      <li class="todo-empty" ng-if="todos.length === 0">
+        ยังไม่มีรายการ ลองเพิ่มดูสิ! 🎉
+      </li>
+    </ul>
+
+    <!-- Footer Actions -->
+    <div class="todo-footer" ng-if="todos.length > 0">
+      <span class="todo-stats">
+        ทำแล้ว {{ doneCount() }} / {{ todos.length }} รายการ
+      </span>
+      <button
+        class="btn btn-clear"
+        ng-click="clearDone()"
+        ng-if="doneCount() > 0"
+      >
+        ลบรายการที่ทำแล้ว
+      </button>
+    </div>
+
+  </div>
+</div>
