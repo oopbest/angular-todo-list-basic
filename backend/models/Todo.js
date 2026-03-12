@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // กำหนด Schema หรือโครงสร้างข้อมูลของ Todo
 const todoSchema = new mongoose.Schema({
@@ -22,4 +22,4 @@ const todoSchema = new mongoose.Schema({
 // สร้าง Model จาก Schema
 const Todo = mongoose.model('Todo', todoSchema);
 
-module.exports = Todo;
+export default Todo;

@@ -1,10 +1,11 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const auth = require('./middlewares/auth'); // Import Middleware ตรวจสอบ Token
-const authRoutes = require('./routes/auth.routes'); // Import Auth Routes
-const Todo = require('./models/Todo');
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import auth from './middlewares/auth.js'; // Import Middleware ตรวจสอบ Token
+import authRoutes from './routes/auth.routes.js'; // Import Auth Routes
+import Todo from './models/Todo.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
