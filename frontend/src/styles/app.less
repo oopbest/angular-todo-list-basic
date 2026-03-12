@@ -516,3 +516,62 @@ body {
 .theme-blue   { background: #3498db; }
 .theme-green  { background: #2ed573; }
 .theme-orange { background: #ff6348; }
+
+// ─── 14. UX States: Loading & Errors ──────────
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  animation: fade-in 0.3s ease-out;
+
+  &.alert-error {
+    background-color: fade(@danger-color, 15%);
+    border: 1px solid fade(@danger-color, 30%);
+    color: darken(@danger-color, 10%);
+  }
+
+  .alert-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    &:hover { opacity: 1; }
+  }
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  color: fade(@text-muted, 90%);
+  font-size: 0.9rem;
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid fade(@primary-color, 20%);
+    border-top-color: @primary-color;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

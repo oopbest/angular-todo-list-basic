@@ -7,6 +7,12 @@
       <span class="todo-count">{{ $ctrl.remaining() }} รายการที่ยังค้างอยู่</span>
     </div>
 
+    <!-- Error Alert -->
+    <div class="alert alert-error" ng-if="$ctrl.error">
+      ⚠️ {{ $ctrl.error }}
+      <button class="alert-close" ng-click="$ctrl.error = null">&times;</button>
+    </div>
+
     <!-- Input Form -->
     <form class="todo-form" ng-submit="$ctrl.addTodo()">
       <input
@@ -14,10 +20,11 @@
         class="todo-input"
         ng-model="$ctrl.newTodo"
         placeholder="เพิ่มรายการใหม่..."
+        ng-disabled="$ctrl.isSaving"
         autofocus
       />
-      <button type="submit" class="btn btn-add" ng-disabled="!$ctrl.newTodo.trim()">
-        เพิ่ม
+      <button type="submit" class="btn btn-add" ng-disabled="!$ctrl.newTodo.trim() || $ctrl.isSaving">
+        {{ $ctrl.isSaving ? 'กำลังบันทึก...' : 'เพิ่ม' }}
       </button>
     </form>
 
@@ -40,8 +47,14 @@
       >ทำแล้ว (Completed)</button>
     </div>
 
+    <!-- Loading Spinner -->
+    <div class="loader-container" ng-if="$ctrl.isLoading">
+      <div class="spinner"></div>
+      <p>กำลังโหลดข้อมูล...</p>
+    </div>
+
     <!-- Todo List -->
-    <ul class="todo-list">
+    <ul class="todo-list" ng-if="!$ctrl.isLoading">
       <li
         class="todo-item"
         ng-repeat="todo in $ctrl.todos | filter: $ctrl.checkFilter"
@@ -69,7 +82,7 @@
       </li>
 
       <!-- Empty State -->
-      <li class="todo-empty" ng-if="$ctrl.todos.length === 0">
+      <li class="todo-empty" ng-if="$ctrl.todos.length === 0 && !$ctrl.isLoading">
         ยังไม่มีรายการ ลองเพิ่มดูสิ! 🎉
       </li>
     </ul>
