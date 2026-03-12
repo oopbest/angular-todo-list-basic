@@ -12,23 +12,23 @@
         <input 
           type="text" 
           class="setting-input" 
-          ng-model="username" 
+          ng-model="$ctrl.username" 
           placeholder="กรอกชื่อของคุณ..."
         />
-        <p class="setting-preview" ng-if="username">
-          สวัสดีครับ <strong>{{ username }}</strong>! 👋
+        <p class="setting-preview" ng-if="$ctrl.username">
+          สวัสดีครับ <strong>{{ $ctrl.username }}</strong>! 👋
         </p>
       </div>
 
       <div class="setting-group">
         <label class="setting-label">จำนวน Todo เริ่มต้นที่ต้องการ</label>
-        <select class="setting-input" ng-model="defaultCount">
+        <select class="setting-input" ng-model="$ctrl.defaultCount">
           <option value="3">3 รายการ</option>
           <option value="5">5 รายการ</option>
           <option value="10">10 รายการ</option>
         </select>
         <p class="setting-preview">
-          เลือก: {{ defaultCount }} รายการ
+          เลือก: {{ $ctrl.defaultCount }} รายการ
         </p>
       </div>
 
@@ -37,27 +37,27 @@
         <div class="theme-options">
           <button 
             class="theme-btn theme-purple"
-            ng-class="{ 'selected': theme === 'purple' }"
-            ng-click="setTheme('purple')"
+            ng-class="{ 'selected': $ctrl.theme === 'purple' }"
+            ng-click="$ctrl.setTheme('purple')"
           ></button>
           <button 
             class="theme-btn theme-blue"
-            ng-class="{ 'selected': theme === 'blue' }"
-            ng-click="setTheme('blue')"
+            ng-class="{ 'selected': $ctrl.theme === 'blue' }"
+            ng-click="$ctrl.setTheme('blue')"
           ></button>
           <button 
             class="theme-btn theme-green"
-            ng-class="{ 'selected': theme === 'green' }"
-            ng-click="setTheme('green')"
+            ng-class="{ 'selected': $ctrl.theme === 'green' }"
+            ng-click="$ctrl.setTheme('green')"
           ></button>
           <button 
             class="theme-btn theme-orange"
-            ng-class="{ 'selected': theme === 'orange' }"
-            ng-click="setTheme('orange')"
+            ng-class="{ 'selected': $ctrl.theme === 'orange' }"
+            ng-click="$ctrl.setTheme('orange')"
           ></button>
         </div>
         <p class="setting-preview">
-          ธีมปัจจุบัน: <strong>{{ theme }}</strong>
+          ธีมปัจจุบัน: <strong>{{ $ctrl.theme }}</strong>
         </p>
       </div>
 

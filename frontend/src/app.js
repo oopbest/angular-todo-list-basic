@@ -30,10 +30,10 @@ require('./config/routes.js');
 // 6️⃣ โหลด Services
 require('./components/todo/todo.service.js');
 
-// 7️⃣ โหลด Controllers ทั้งหมด (จัดเป็น component-based structure)
-require('./components/todo/todo.controller.js');
-require('./components/about/about.controller.js');
-require('./components/settings/settings.controller.js');
+// 7️⃣ โหลด Components ทั้งหมด (จัดเป็น component-based structure)
+require('./components/todo/todo.component.js');
+require('./components/about/about.component.js');
+require('./components/settings/settings.component.js');
 
 // Export สำหรับใช้ใน files อื่น
 module.exports = app;

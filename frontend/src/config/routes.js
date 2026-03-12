@@ -18,26 +18,18 @@ angular.module('todoApp').config(function($stateProvider, $urlRouterProvider) {
   // 🔹 Default route - ถ้า URL ไม่ตรงกับ state ไหนเลย ให้กลับไปหน้า Home
   $urlRouterProvider.otherwise('/');
 
-  // 🔹 กำหนด States (routes) ทั้งหมดของแอป
+  // กำหนด States (หน้าต่างๆ)
   $stateProvider
-    // ─── Home (Todo List) ─────────────────────
     .state('home', {
       url: '/',
-      template: require('../components/todo/todo.html'),
-      controller: 'TodoController',
+      template: '<todo-app></todo-app>'
     })
-
-    // ─── About Page ──────────────────────────
     .state('about', {
       url: '/about',
-      template: require('../components/about/about.html'),
-      controller: 'AboutController',
+      template: '<about-page></about-page>'
     })
-
-    // ─── Settings Page ───────────────────────
     .state('settings', {
       url: '/settings',
-      template: require('../components/settings/settings.html'),
-      controller: 'SettingsController',
+      template: '<settings-page></settings-page>'
     });
 });

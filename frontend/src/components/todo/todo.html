@@ -4,19 +4,19 @@
     <!-- Header -->
     <div class="todo-header">
       <h1>📝 My Todo List</h1>
-      <span class="todo-count">{{ remaining() }} รายการที่ยังค้างอยู่</span>
+      <span class="todo-count">{{ $ctrl.remaining() }} รายการที่ยังค้างอยู่</span>
     </div>
 
     <!-- Input Form -->
-    <form class="todo-form" ng-submit="addTodo()">
+    <form class="todo-form" ng-submit="$ctrl.addTodo()">
       <input
         type="text"
         class="todo-input"
-        ng-model="newTodo"
+        ng-model="$ctrl.newTodo"
         placeholder="เพิ่มรายการใหม่..."
         autofocus
       />
-      <button type="submit" class="btn btn-add" ng-disabled="!newTodo.trim()">
+      <button type="submit" class="btn btn-add" ng-disabled="!$ctrl.newTodo.trim()">
         เพิ่ม
       </button>
     </form>
@@ -25,18 +25,18 @@
     <div class="todo-filters">
       <button 
         class="btn-filter" 
-        ng-class="{ 'active': statusFilter === '' }" 
-        ng-click="setFilter('')"
+        ng-class="{ 'active': $ctrl.statusFilter === '' }" 
+        ng-click="$ctrl.setFilter('')"
       >ทั้งหมด (All)</button>
       <button 
         class="btn-filter" 
-        ng-class="{ 'active': statusFilter === 'active' }" 
-        ng-click="setFilter('active')"
+        ng-class="{ 'active': $ctrl.statusFilter === 'active' }" 
+        ng-click="$ctrl.setFilter('active')"
       >ค้างอยู่ (Active)</button>
       <button 
         class="btn-filter" 
-        ng-class="{ 'active': statusFilter === 'completed' }" 
-        ng-click="setFilter('completed')"
+        ng-class="{ 'active': $ctrl.statusFilter === 'completed' }" 
+        ng-click="$ctrl.setFilter('completed')"
       >ทำแล้ว (Completed)</button>
     </div>
 
@@ -44,7 +44,7 @@
     <ul class="todo-list">
       <li
         class="todo-item"
-        ng-repeat="todo in todos | filter: checkFilter"
+        ng-repeat="todo in $ctrl.todos | filter: $ctrl.checkFilter"
         ng-class="{ 'done': todo.done }"
       >
         <!-- Checkbox Toggle -->
@@ -52,7 +52,7 @@
           <input
             type="checkbox"
             ng-model="todo.done"
-            ng-change="updateTodo(todo)"
+            ng-change="$ctrl.updateTodo(todo)"
             class="todo-checkbox"
           />
           <span class="todo-text">{{ todo.text }}</span>
@@ -61,7 +61,7 @@
         <!-- Delete Button -->
         <button
           class="btn btn-delete"
-          ng-click="removeTodo(todo._id)"
+          ng-click="$ctrl.removeTodo(todo._id)"
           title="ลบรายการนี้"
         >
           ✕
@@ -69,20 +69,20 @@
       </li>
 
       <!-- Empty State -->
-      <li class="todo-empty" ng-if="todos.length === 0">
+      <li class="todo-empty" ng-if="$ctrl.todos.length === 0">
         ยังไม่มีรายการ ลองเพิ่มดูสิ! 🎉
       </li>
     </ul>
 
     <!-- Footer Actions -->
-    <div class="todo-footer" ng-if="todos.length > 0">
+    <div class="todo-footer" ng-if="$ctrl.todos.length > 0">
       <span class="todo-stats">
-        ทำแล้ว {{ doneCount() }} / {{ todos.length }} รายการ
+        ทำแล้ว {{ $ctrl.doneCount() }} / {{ $ctrl.todos.length }} รายการ
       </span>
       <button
         class="btn btn-clear"
-        ng-click="clearDone()"
-        ng-if="doneCount() > 0"
+        ng-click="$ctrl.clearDone()"
+        ng-if="$ctrl.doneCount() > 0"
       >
         ลบรายการที่ทำแล้ว
       </button>
