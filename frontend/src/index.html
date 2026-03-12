@@ -9,7 +9,7 @@
     HtmlWebpackPlugin จะ inject bundle.js ให้อัตโนมัติ
   -->
 </head>
-<body>
+<body ng-controller="NavbarController as nav">
 
   <!-- Navbar -->
   <!-- 💡 ui-sref="stateName" สร้าง link ไปยัง state ที่กำหนดใน routes.js
@@ -17,15 +17,34 @@
   <nav class="navbar">
     <div class="navbar-brand">📝 TodoApp</div>
     <ul class="navbar-links">
-      <li ui-sref-active="active">
+      
+      <!-- เมนูสำหรับคนที่ Login แล้ว -->
+      <li ui-sref-active="active" ng-if="nav.isLoggedIn()">
         <a ui-sref="home">🏠 Home</a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-if="nav.isLoggedIn()">
         <a ui-sref="about">ℹ️ About</a>
       </li>
-      <li ui-sref-active="active">
+      <li ui-sref-active="active" ng-if="nav.isLoggedIn()">
         <a ui-sref="settings">⚙️ Settings</a>
       </li>
+      
+      <!-- แสดงชื่อ และปุ่ม Logout กรณี Login แล้ว -->
+      <li ng-if="nav.isLoggedIn()">
+        <span class="nav-user">👤 {{ nav.getUsername() }}</span>
+      </li>
+      <li ng-if="nav.isLoggedIn()">
+        <a href="#" ng-click="nav.logout()" class="nav-logout">🚪 Logout</a>
+      </li>
+
+      <!-- เมนูสำหรับคนที่ 'ยังไม่' Login -->
+      <li ui-sref-active="active" ng-if="!nav.isLoggedIn()">
+        <a ui-sref="login">🔑 Login</a>
+      </li>
+      <li ui-sref-active="active" ng-if="!nav.isLoggedIn()">
+        <a ui-sref="register">📝 Register</a>
+      </li>
+
     </ul>
   </nav>
 

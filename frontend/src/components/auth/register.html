@@ -1,0 +1,60 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Create an Account 🚀</h2>
+      <p>สมัครสมาชิกเพื่อเริ่มต้นใช้งาน TodoApp</p>
+    </div>
+
+    <div class="alert alert-error" ng-if="$ctrl.error">
+      ⚠️ {{ $ctrl.error }}
+      <button class="alert-close" ng-click="$ctrl.error = null">&times;</button>
+    </div>
+
+    <form class="auth-form" ng-submit="$ctrl.register()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          ng-model="$ctrl.user.username" 
+          placeholder="ความยาวอย่างน้อย 3 ตัวอักษร" 
+          required 
+          autofocus
+          ng-disabled="$ctrl.isLoading"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          ng-model="$ctrl.user.password" 
+          placeholder="ความยาวอย่างน้อย 6 ตัวอักษร" 
+          required
+          ng-disabled="$ctrl.isLoading"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          ng-model="$ctrl.user.confirmPassword" 
+          placeholder="ยืนยันรหัสผ่านอีกครั้ง" 
+          required
+          ng-disabled="$ctrl.isLoading"
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="!$ctrl.user.username || !$ctrl.user.password || !$ctrl.user.confirmPassword || $ctrl.isLoading">
+        {{ $ctrl.isLoading ? 'กำลังสมัครสมาชิก...' : 'สมัครสมาชิก' }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      มีบัญชีอยู่แล้วใช่ไหม? <a ui-sref="login">เข้าสู่ระบบที่นี่</a>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const auth = require('./middlewares/auth'); // Import Middleware ตรวจสอบ Token
+const authRoutes = require('./routes/auth.routes'); // Import Auth Routes
 const Todo = require('./models/Todo');
 
 const app = express();
@@ -20,22 +22,29 @@ mongoose.connect(process.env.MONGODB_URI)
 // API Routes
 // ==========================================
 
-// 1. GET /api/todos - ดึงข้อมูล Todos ทั้งหมด
+// 0. Auth Routes
+app.use('/api/auth', authRoutes);
+
+// --- ต่อจากนี้ต้องแนบ Token ทุกครั้งที่เรียก ---
+app.use('/api/todos', auth);
+
+// 1. GET /api/todos - ดึงข้อมูล Todos ทั้งหมด (เฉพาะของคนที่ Login)
 app.get('/api/todos', async (req, res) => {
   try {
-    const todos = await Todo.find().sort({ createdAt: -1 }); // เรียงล่าสุดขึ้นก่อน
+    const todos = await Todo.find({ user: req.user.id }).sort({ createdAt: -1 }); // ดึงเฉพาะของ user คนนี้
     res.json(todos);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch todos' });
   }
 });
 
-// 2. POST /api/todos - เพิ่ม Todo ใหม่
+// 2. POST /api/todos - เพิ่ม Todo ใหม่ (บันทึกว่าใครเป็นคนเพื่ม)
 app.post('/api/todos', async (req, res) => {
   try {
     const newTodo = new Todo({
       text: req.body.text,
-      done: false
+      done: false,
+      user: req.user.id // ผูก Todo กับ ID คน Login
     });
     const savedTodo = await newTodo.save();
     res.status(201).json(savedTodo);
@@ -44,11 +53,12 @@ app.post('/api/todos', async (req, res) => {
   }
 });
 
-// 3. PUT /api/todos/:id - อัปเดต Todo (เช่น tick checkbox)
+// 3. PUT /api/todos/:id - อัปเดต Todo (เฉพาะของตัวเอง)
 app.put('/api/todos/:id', async (req, res) => {
   try {
-    const updatedTodo = await Todo.findByIdAndUpdate(
-      req.params.id, 
+    // อัปเดตเมื่อ ID ตรงและ user เป็นเจ้าของเท่านั้น
+    const updatedTodo = await Todo.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.id },
       { done: req.body.done, text: req.body.text },
       { new: true } // ให้ดึงข้อมูลที่อัปเดตแล้วกลับมา
     );
@@ -59,20 +69,20 @@ app.put('/api/todos/:id', async (req, res) => {
   }
 });
 
-// 4. DELETE /api/todos/done - ลบรายการที่ทำเสร็จแล้ว
+// 4. DELETE /api/todos/done - ลบรายการที่ทำเสร็จแล้ว (เฉพาะของตัวเอง)
 app.delete('/api/todos/done', async (req, res) => {
   try {
-    const result = await Todo.deleteMany({ done: true });
+    const result = await Todo.deleteMany({ user: req.user.id, done: true });
     res.json({ message: `Deleted ${result.deletedCount} completed todos.` });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete completed todos' });
   }
 });
 
-// 5. DELETE /api/todos/:id - ลบทิ้ง 1 รายการ
+// 5. DELETE /api/todos/:id - ลบทิ้ง 1 รายการ (เฉพาะของตัวเอง)
 app.delete('/api/todos/:id', async (req, res) => {
   try {
-    const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
+    const deletedTodo = await Todo.findOneAndDelete({ _id: req.params.id, user: req.user.id });
     if (!deletedTodo) return res.status(404).json({ error: 'Todo not found' });
     res.json({ message: 'Todo deleted successfully' });
   } catch (err) {

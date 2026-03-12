@@ -24,17 +24,33 @@ require('./styles/app.less');
 //    เพื่อให้ใช้งาน $stateProvider, ui-view, ui-sref ได้
 const app = angular.module('todoApp', ['ui.router']);
 
+// Configure $httpProvider to use AuthInterceptor
+app.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+}]);
+
 // 5️⃣ โหลด Route Config
 require('./config/routes.js');
 
 // 6️⃣ โหลด Services
 require('./components/todo/todo.service.js');
+require('./core/services/auth.service');
+require('./core/services/auth.interceptor');
 
 // 7️⃣ โหลด Components ทั้งหมด (จัดเป็น component-based structure)
-require('./components/todo/todo.component.js');
+require('./components/todo/todo.component');
 require('./components/about/about.component.js');
 require('./components/settings/settings.component.js');
+require('./components/auth/login.component.js');
+require('./components/auth/register.component.js');
+
+// 8️⃣ Controller สำหรับ Navbar (ช่วยดึงสถานะ Login มาแสดงเมนู)
+app.controller('NavbarController', function(AuthService) {
+  const nav = this;
+  nav.isLoggedIn = AuthService.isLoggedIn;
+  nav.getUsername = AuthService.getUsername;
+  nav.logout = AuthService.logout;
+});
 
 // Export สำหรับใช้ใน files อื่น
 module.exports = app;
-

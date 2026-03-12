@@ -335,6 +335,30 @@ body {
         background: rgba(108, 99, 255, 0.1);
       }
     }
+
+    .nav-user {
+      display: inline-block;
+      padding: 14px 16px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-bottom: 3px solid transparent;
+    }
+
+    .nav-logout {
+      display: inline-block;
+      padding: 14px 16px;
+      color: @danger-color !important;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+
+      &:hover {
+        background: fade(@danger-color, 10%) !important;
+      }
+    }
   }
 }
 
@@ -574,4 +598,98 @@ body {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+// ─── 15. Auth Pages (Login & Register) ────────
+
+.auth-wrapper {
+  width: 100%;
+  max-width: 440px;
+  margin: 40px auto;
+}
+
+.auth-card {
+  background: @card-bg;
+  border-radius: @border-radius;
+  box-shadow: @shadow;
+  overflow: hidden;
+  padding: 32px 40px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+
+  h2 {
+    font-size: 1.6rem;
+    color: @text-color;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  p {
+    color: @text-muted;
+    font-size: 0.95rem;
+  }
+}
+
+.auth-form {
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: @text-color;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid @border-color;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: @font-main;
+      transition: all 0.2s;
+      outline: none;
+
+      &:focus {
+        border-color: @primary-color;
+      }
+      
+      &[disabled] {
+        background: #f8f9fc;
+        color: @text-muted;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: @primary-color;
+    color: #fff;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: @text-muted;
+
+  a {
+    color: @primary-color;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
