@@ -24,10 +24,13 @@ require('./styles/app.less');
 //    เพื่อให้ใช้งาน $stateProvider, ui-view, ui-sref ได้
 const app = angular.module('todoApp', ['ui.router']);
 
-// 5️⃣ โหลด Route Config (ต้องมาก่อน Controllers เพราะกำหนด states)
+// 5️⃣ โหลด Route Config
 require('./config/routes.js');
 
-// 6️⃣ โหลด Controllers ทั้งหมด (จัดเป็น component-based structure)
+// 6️⃣ โหลด Services
+require('./components/todo/todo.service.js');
+
+// 7️⃣ โหลด Controllers ทั้งหมด (จัดเป็น component-based structure)
 require('./components/todo/todo.controller.js');
 require('./components/about/about.controller.js');
 require('./components/settings/settings.controller.js');

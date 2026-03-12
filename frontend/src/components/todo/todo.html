@@ -52,6 +52,7 @@
           <input
             type="checkbox"
             ng-model="todo.done"
+            ng-change="updateTodo(todo)"
             class="todo-checkbox"
           />
           <span class="todo-text">{{ todo.text }}</span>
@@ -60,7 +61,7 @@
         <!-- Delete Button -->
         <button
           class="btn btn-delete"
-          ng-click="removeTodo($index)"
+          ng-click="removeTodo(todo._id)"
           title="ลบรายการนี้"
         >
           ✕
