@@ -1,7 +1,8 @@
 const angular = require('angular');
+const { buildApiUrl } = require('../../config/api');
 
 angular.module('todoApp').factory('AuthService', function($http, $window, $state) {
-  const API_URL = 'http://localhost:3000/api/auth';
+  const API_URL = buildApiUrl('/auth');
   
   const authService = {};
 

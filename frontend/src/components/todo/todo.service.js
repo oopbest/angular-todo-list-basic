@@ -1,7 +1,8 @@
 const angular = require('angular');
+const { buildApiUrl } = require('../../config/api');
 
 angular.module('todoApp').factory('TodoService', function($http, $q) {
-  const API_URL = 'http://localhost:3000/api/todos';
+  const API_URL = buildApiUrl('/todos');
 
   return {
     // ดึงข้อมูลทั้งหมด

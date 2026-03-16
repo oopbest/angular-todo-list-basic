@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -44,6 +45,10 @@ module.exports = {
 
   // 📌 Plugins - เครื่องมือเพิ่มเติมนอกเหนือจาก loaders
   plugins: [
+    new webpack.EnvironmentPlugin({
+      API_BASE_URL: 'http://localhost:3000/api',
+    }),
+
     // HtmlWebpackPlugin: สร้าง index.html ใน dist/ อัตโนมัติ
     // และ inject <script src="bundle.js"> ให้อัตโนมัติ
     new HtmlWebpackPlugin({
