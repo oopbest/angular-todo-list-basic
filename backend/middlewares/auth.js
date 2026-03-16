@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
 
   try {
     // 2. ยืนยัน Token (ถ้าถูกต้อง จะได้ข้อมูล id คืนมา)
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_key_123');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // ยัดข้อมูล user ลงไปใน req ให้ API อื่นใช้ต่อ
     next(); // ผ่านด่าน ไปทำ API ต่อไปได้
   } catch (err) {
